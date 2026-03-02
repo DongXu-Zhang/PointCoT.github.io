@@ -3,31 +3,15 @@
 <head>
   <meta charset="utf-8">
   <meta name="description"
-        content="Deformable Neural Radiance Fields creates free-viewpoint portraits (nerfies) from casually captured videos.">
-  <meta name="keywords" content="Nerfies, D-NeRF, NeRF">
+        content="PointCoT empowers Multimodal Large Language Models with explicit Chain-of-Thought reasoning for robust 3D point cloud understanding, following a Look-Think-Answer paradigm.">
+  <meta name="keywords" content="PointCoT, 3D Vision, Point Cloud Understanding, Multimodal Large Language Models, Chain-of-Thought, Multi-modal Learning, 3D-LLM, Geometric Reasoning">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Nerfies: Deformable Neural Radiance Fields</title>
-
-  <!-- Global site tag (gtag.js) - Google Analytics -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=G-PYVRSFMDRL"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-
-    function gtag() {
-      dataLayer.push(arguments);
-    }
-
-    gtag('js', new Date());
-
-    gtag('config', 'G-PYVRSFMDRL');
-  </script>
+  <title>PointCoT: A Multi-modal Benchmark for Explicit 3D Geometric Reasoning</title>
 
   <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
         rel="stylesheet">
 
   <link rel="stylesheet" href="./static/css/bulma.min.css">
-  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
-  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
   <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
   <link rel="stylesheet"
         href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
@@ -36,12 +20,181 @@
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <script defer src="./static/js/fontawesome.all.min.js"></script>
-  <script src="./static/js/bulma-carousel.min.js"></script>
-  <script src="./static/js/bulma-slider.min.js"></script>
   <script src="./static/js/index.js"></script>
+
+  <style>
+    /* ── Section backgrounds ── */
+    .section-gray { background-color: #f7f7f7; }
+
+    /* ── Stat cards ── */
+    .stat-card {
+      padding: 1.6em 1.2em;
+      border-radius: 12px;
+      background: #fff;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.07);
+      height: 100%;
+    }
+    .stat-card .stat-number {
+      font-size: 2rem;
+      font-weight: 700;
+      color: #3273dc;
+      line-height: 1.1;
+    }
+    .stat-card .stat-label {
+      font-size: 0.88rem;
+      color: #555;
+      margin-top: 0.35em;
+    }
+
+    /* ── Figures ── */
+    .publication-image {
+      border-radius: 8px;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.10);
+      width: 100%;
+    }
+    .figure-caption {
+      margin-top: 0.8em;
+      color: #888;
+      font-size: 0.88em;
+      text-align: center;
+      line-height: 1.5;
+    }
+    .placeholder-image {
+      border-radius: 8px;
+      background: #efefef;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 300px;
+      color: #bbb;
+      font-size: 0.95em;
+      border: 2px dashed #ccc;
+    }
+
+    /* ── Paradigm steps (Look / Think / Answer) ── */
+    .paradigm-steps {
+      display: flex;
+      gap: 1.2em;
+      margin: 1.5em 0;
+    }
+    .paradigm-step {
+      flex: 1;
+      background: #fff;
+      border-radius: 10px;
+      padding: 1.2em;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+      border-top: 4px solid #3273dc;
+      text-align: center;
+    }
+    .paradigm-step .step-title {
+      font-weight: 700;
+      font-size: 1.05rem;
+      color: #3273dc;
+      margin-bottom: 0.4em;
+    }
+    .paradigm-step .step-body {
+      font-size: 0.88rem;
+      color: #444;
+      line-height: 1.5;
+    }
+
+    /* ── Results tables ── */
+    .results-table {
+      font-size: 0.9em;
+      width: 100%;
+    }
+    .results-table thead th {
+      background: #f0f4ff;
+      font-weight: 600;
+      text-align: center;
+      white-space: nowrap;
+      padding: 0.6em 0.9em;
+    }
+    .results-table tbody td {
+      text-align: center;
+      padding: 0.5em 0.9em;
+      vertical-align: middle;
+    }
+    .results-table tbody tr:nth-child(odd) { background: #fafafa; }
+    .results-table .section-header td {
+      background: #e8edf8;
+      font-style: italic;
+      font-size: 0.85em;
+      color: #555;
+      text-align: left;
+      padding-left: 1em;
+    }
+    .results-table .ours td { font-weight: 700; color: #1a56db; }
+    .results-table .ours td:first-child { text-align: left; padding-left: 1em; }
+    .results-table tbody td:first-child { text-align: left; padding-left: 1em; }
+
+    /* ── Qualitative case boxes ── */
+    .case-box {
+      border: 1px solid #e0e0e0;
+      border-radius: 10px;
+      padding: 1.2em;
+      background: #fff;
+      margin-bottom: 1.2em;
+    }
+    .case-box .case-title {
+      font-weight: 700;
+      color: #3273dc;
+      margin-bottom: 0.6em;
+      font-size: 0.95rem;
+    }
+    .case-box .case-question {
+      font-style: italic;
+      color: #444;
+      margin-bottom: 0.6em;
+      font-size: 0.9rem;
+    }
+    .case-box .baseline-answer {
+      color: #c0392b;
+      font-size: 0.88rem;
+      margin-bottom: 0.4em;
+    }
+    .case-box .our-answer {
+      font-size: 0.88rem;
+      line-height: 1.6;
+    }
+    .case-box .our-answer .step-tag {
+      display: inline-block;
+      background: #3273dc;
+      color: #fff;
+      border-radius: 4px;
+      padding: 0 0.4em;
+      font-size: 0.78rem;
+      font-weight: 600;
+      margin-right: 0.3em;
+    }
+
+    /* ── Dataset level badges ── */
+    .level-badge {
+      display: inline-block;
+      border-radius: 6px;
+      padding: 0.15em 0.6em;
+      font-size: 0.78rem;
+      font-weight: 700;
+      margin-right: 0.4em;
+    }
+    .level-1 { background: #dbeafe; color: #1d4ed8; }
+    .level-2 { background: #dcfce7; color: #15803d; }
+    .level-3 { background: #fef3c7; color: #b45309; }
+
+    /* ── Contribution list ── */
+    .contribution-list li {
+      margin-bottom: 0.7em;
+      line-height: 1.6;
+    }
+
+    @media (max-width: 768px) {
+      .paradigm-steps { flex-direction: column; }
+    }
+  </style>
 </head>
 <body>
 
+<!-- ════════════════════════ Navbar ════════════════════════ -->
 <nav class="navbar" role="navigation" aria-label="main navigation">
   <div class="navbar-brand">
     <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
@@ -52,416 +205,811 @@
   </div>
   <div class="navbar-menu">
     <div class="navbar-start" style="flex-grow: 1; justify-content: center;">
-      <a class="navbar-item" href="https://keunhong.com">
-      <span class="icon">
-          <i class="fas fa-home"></i>
-      </span>
+      <a class="navbar-item" href="https://dongxu-zhang.github.io/">
+        <span class="icon"><i class="fas fa-home"></i></span>
       </a>
-
-      <div class="navbar-item has-dropdown is-hoverable">
-        <a class="navbar-link">
-          More Research
-        </a>
-        <div class="navbar-dropdown">
-          <a class="navbar-item" href="https://hypernerf.github.io">
-            HyperNeRF
-          </a>
-          <a class="navbar-item" href="https://nerfies.github.io">
-            Nerfies
-          </a>
-          <a class="navbar-item" href="https://latentfusion.github.io">
-            LatentFusion
-          </a>
-          <a class="navbar-item" href="https://photoshape.github.io">
-            PhotoShape
-          </a>
-        </div>
-      </div>
     </div>
-
   </div>
 </nav>
 
 
+<!-- ════════════════════════ Hero / Title ════════════════════════ -->
 <section class="hero">
   <div class="hero-body">
     <div class="container is-max-desktop">
       <div class="columns is-centered">
         <div class="column has-text-centered">
-          <h1 class="title is-1 publication-title">Nerfies: Deformable Neural Radiance Fields</h1>
+
+          <h1 class="title is-1 publication-title">
+            PointCoT: A Multi-modal Benchmark for Explicit 3D Geometric Reasoning
+          </h1>
+
           <div class="is-size-5 publication-authors">
             <span class="author-block">
-              <a href="https://keunhong.com">Keunhong Park</a><sup>1</sup>,</span>
+              <a href="https://dongxu-zhang.github.io/">Dongxu Zhang</a><sup>1,9,*</sup>,</span>
             <span class="author-block">
-              <a href="https://utkarshsinha.com">Utkarsh Sinha</a><sup>2</sup>,</span>
+              <a href="https://openreview.net/profile?id=~Yiding_Sun2">Yiding Sun</a><sup>1,9,*</sup>,</span>
             <span class="author-block">
-              <a href="https://jonbarron.info">Jonathan T. Barron</a><sup>2</sup>,
-            </span>
+              <a href="https://openreview.net/profile?id=~Pengcheng_Li12">Pengcheng Li</a><sup>2,9,*</sup>,</span>
             <span class="author-block">
-              <a href="http://sofienbouaziz.com">Sofien Bouaziz</a><sup>2</sup>,
-            </span>
+              <a href="https://openreview.net/profile?id=~Yumou_Liu2">Yumou Liu</a><sup>3</sup>,</span>
             <span class="author-block">
-              <a href="https://www.danbgoldman.com">Dan B Goldman</a><sup>2</sup>,
-            </span>
+              <a href="https://openreview.net/profile?id=~Hongqiang_Lin1">Hongqiang Lin</a><sup>4</sup>,</span>
             <span class="author-block">
-              <a href="https://homes.cs.washington.edu/~seitz/">Steven M. Seitz</a><sup>1,2</sup>,
-            </span>
+              <a href="https://openreview.net/profile?id=~Haoran_Xu23">Haoran Xu</a><sup>1</sup>,</span>
             <span class="author-block">
-              <a href="http://www.ricardomartinbrualla.com">Ricardo Martin-Brualla</a><sup>2</sup>
+              <a href="https://scholar.google.com/citations?user=vMHtMkQAAAAJ&hl=en">Xiaoxuan Mu</a><sup>1</sup>,</span>
+            <span class="author-block">
+              <a href="https://scholar.google.com/citations?hl=en&user=XQNpChIAAAAJ">Liang Lin</a><sup>5</sup>,</span>
+            <span class="author-block">
+              <a href="https://scholar.google.com/citations?user=LRLQFpUAAAAJ&hl=en">Wenbiao Yan</a><sup>6</sup>,</span>
+            <span class="author-block">
+              <a href="https://scholar.google.com/citations?hl=zh-CN&user=b4cE0J4AAAAJ">Ning Yang</a><sup>7</sup>,</span>
+            <span class="author-block">
+              <a href="https://chaoweifang.github.io/">Chaowei Fang</a><sup>1</sup>,</span>
+            <span class="author-block">
+              <a href="https://rjxy.tyut.edu.cn/info/1191/3989.htm">Juanjuan Zhao</a><sup>8</sup>,</span>
+            <span class="author-block">
+              <a href="https://gr.xjtu.edu.cn/web/zhujh">Jihua Zhu</a><sup>1</sup>,</span>
+            <span class="author-block">
+              <a href="https://conghui.ai/">Conghui He</a><sup>9</sup>,</span>
+            <span class="author-block">
+              <a href="https://chengtan9907.github.io/">Cheng Tan</a><sup>9</sup>
             </span>
           </div>
 
-          <div class="is-size-5 publication-authors">
-            <span class="author-block"><sup>1</sup>University of Washington,</span>
-            <span class="author-block"><sup>2</sup>Google Research</span>
+          <div class="is-size-5 publication-authors" style="margin-top: 0.5em; flex-wrap: wrap;">
+            <span class="author-block"><sup>1</sup>Xi'an Jiaotong University,</span>
+            <span class="author-block"><sup>2</sup>Tsinghua University,</span>
+            <span class="author-block"><sup>3</sup>Shanghai Jiao Tong University,</span>
+            <span class="author-block"><sup>4</sup>Zhejiang University,</span>
+            <span class="author-block"><sup>5</sup>Nanyang Technological University,</span>
+            <span class="author-block"><sup>6</sup>Harbin Institute of Technology, Shenzhen,</span>
+            <span class="author-block"><sup>7</sup>Institute of Automation, CASIA,</span>
+            <span class="author-block"><sup>8</sup>Taiyuan University of Technology,</span>
+            <span class="author-block"><sup>9</sup>Shanghai AI Laboratory</span>
+          </div>
+
+          <div class="is-size-6 publication-authors" style="margin-top: 0.4em;">
+            <span class="author-block"><sup>*</sup>Equal contribution</span>
           </div>
 
           <div class="column has-text-centered">
             <div class="publication-links">
-              <!-- PDF Link. -->
               <span class="link-block">
-                <a href="https://arxiv.org/pdf/2011.12948"
+                <a href="https://arxiv.org/pdf/2602.23945"
                    class="external-link button is-normal is-rounded is-dark">
-                  <span class="icon">
-                      <i class="fas fa-file-pdf"></i>
-                  </span>
+                  <span class="icon"><i class="fas fa-file-pdf"></i></span>
                   <span>Paper</span>
                 </a>
               </span>
               <span class="link-block">
-                <a href="https://arxiv.org/abs/2011.12948"
+                <a href="https://arxiv.org/abs/2602.23945"
                    class="external-link button is-normal is-rounded is-dark">
-                  <span class="icon">
-                      <i class="ai ai-arxiv"></i>
-                  </span>
+                  <span class="icon"><i class="ai ai-arxiv"></i></span>
                   <span>arXiv</span>
                 </a>
               </span>
-              <!-- Video Link. -->
               <span class="link-block">
-                <a href="https://www.youtube.com/watch?v=MrKrnHhk8IA"
+                <a href="https://github.com/DongXu-Zhang/PointCot"
                    class="external-link button is-normal is-rounded is-dark">
-                  <span class="icon">
-                      <i class="fab fa-youtube"></i>
-                  </span>
-                  <span>Video</span>
+                  <span class="icon"><i class="fab fa-github"></i></span>
+                  <span>Code</span>
                 </a>
               </span>
-              <!-- Code Link. -->
               <span class="link-block">
-                <a href="https://github.com/google/nerfies"
+                <a href="https://huggingface.co/datasets/dongxu0852/Point-Reason-Instruct"
                    class="external-link button is-normal is-rounded is-dark">
-                  <span class="icon">
-                      <i class="fab fa-github"></i>
-                  </span>
-                  <span>Code</span>
-                  </a>
+                  <span class="icon"><i class="fas fa-database"></i></span>
+                  <span>Dataset</span>
+                </a>
               </span>
-              <!-- Dataset Link. -->
-              <span class="link-block">
-                <a href="https://github.com/google/nerfies/releases/tag/0.1"
-                   class="external-link button is-normal is-rounded is-dark">
-                  <span class="icon">
-                      <i class="far fa-images"></i>
-                  </span>
-                  <span>Data</span>
-                  </a>
             </div>
-
           </div>
+
         </div>
       </div>
     </div>
   </div>
 </section>
 
+
+<!-- ════════════════════════ Teaser Figure ════════════════════════ -->
 <section class="hero teaser">
   <div class="container is-max-desktop">
     <div class="hero-body">
-      <video id="teaser" autoplay muted loop playsinline height="100%">
-        <source src="./static/videos/teaser.mp4"
-                type="video/mp4">
-      </video>
-      <h2 class="subtitle has-text-centered">
-        <span class="dnerf">Nerfies</span> turns selfie videos from your phone into
-        free-viewpoint
-        portraits.
+      <img src="./static/images/motivation.png"
+           alt="PointCoT: Explicit Look-Think-Answer Paradigm vs. Geometric Hallucination"
+           class="publication-image">
+      <h2 class="subtitle has-text-centered" style="margin-top:1.2em;">
+        <span class="dnerf">PointCoT</span> introduces an explicit
+        <em>Look&ndash;Think&ndash;Answer</em> paradigm that empowers Multimodal Large Language
+        Models with geometry-grounded Chain-of-Thought reasoning over 3D point clouds,
+        significantly reducing geometric hallucinations and enabling interpretable 3D understanding.
       </h2>
     </div>
   </div>
 </section>
 
 
-<section class="hero is-light is-small">
-  <div class="hero-body">
-    <div class="container">
-      <div id="results-carousel" class="carousel results-carousel">
-        <div class="item item-steve">
-          <video poster="" id="steve" autoplay controls muted loop playsinline height="100%">
-            <source src="./static/videos/steve.mp4"
-                    type="video/mp4">
-          </video>
-        </div>
-        <div class="item item-chair-tp">
-          <video poster="" id="chair-tp" autoplay controls muted loop playsinline height="100%">
-            <source src="./static/videos/chair-tp.mp4"
-                    type="video/mp4">
-          </video>
-        </div>
-        <div class="item item-shiba">
-          <video poster="" id="shiba" autoplay controls muted loop playsinline height="100%">
-            <source src="./static/videos/shiba.mp4"
-                    type="video/mp4">
-          </video>
-        </div>
-        <div class="item item-fullbody">
-          <video poster="" id="fullbody" autoplay controls muted loop playsinline height="100%">
-            <source src="./static/videos/fullbody.mp4"
-                    type="video/mp4">
-          </video>
-        </div>
-        <div class="item item-blueshirt">
-          <video poster="" id="blueshirt" autoplay controls muted loop playsinline height="100%">
-            <source src="./static/videos/blueshirt.mp4"
-                    type="video/mp4">
-          </video>
-        </div>
-        <div class="item item-mask">
-          <video poster="" id="mask" autoplay controls muted loop playsinline height="100%">
-            <source src="./static/videos/mask.mp4"
-                    type="video/mp4">
-          </video>
-        </div>
-        <div class="item item-coffee">
-          <video poster="" id="coffee" autoplay controls muted loop playsinline height="100%">
-            <source src="./static/videos/coffee.mp4"
-                    type="video/mp4">
-          </video>
-        </div>
-        <div class="item item-toby">
-          <video poster="" id="toby" autoplay controls muted loop playsinline height="100%">
-            <source src="./static/videos/toby2.mp4"
-                    type="video/mp4">
-          </video>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-
+<!-- ════════════════════════ Abstract ════════════════════════ -->
 <section class="section">
   <div class="container is-max-desktop">
-    <!-- Abstract. -->
     <div class="columns is-centered has-text-centered">
       <div class="column is-four-fifths">
         <h2 class="title is-3">Abstract</h2>
         <div class="content has-text-justified">
           <p>
-            We present the first method capable of photorealistically reconstructing a non-rigidly
-            deforming scene using photos/videos captured casually from mobile phones.
+            While Multimodal Large Language Models (MLLMs) demonstrate proficiency in 2D scenes,
+            extending their perceptual intelligence to 3D point cloud understanding remains a significant
+            challenge. Current approaches focus primarily on aligning 3D features with pre-trained
+            models. However, they typically treat geometric reasoning as an implicit mapping process.
+            These methods bypass intermediate logical steps and consequently suffer from
+            <strong>geometric hallucinations</strong>&mdash;confidently generating plausible responses
+            that fail to ground in precise structural details.
           </p>
           <p>
-            Our approach augments neural radiance fields
-            (NeRF) by optimizing an
-            additional continuous volumetric deformation field that warps each observed point into a
-            canonical 5D NeRF.
-            We observe that these NeRF-like deformation fields are prone to local minima, and
-            propose a coarse-to-fine optimization method for coordinate-based models that allows for
-            more robust optimization.
-            By adapting principles from geometry processing and physical simulation to NeRF-like
-            models, we propose an elastic regularization of the deformation field that further
-            improves robustness.
-          </p>
-          <p>
-            We show that <span class="dnerf">Nerfies</span> can turn casually captured selfie
-            photos/videos into deformable NeRF
-            models that allow for photorealistic renderings of the subject from arbitrary
-            viewpoints, which we dub <i>"nerfies"</i>. We evaluate our method by collecting data
-            using a
-            rig with two mobile phones that take time-synchronized photos, yielding train/validation
-            images of the same pose at different viewpoints. We show that our method faithfully
-            reconstructs non-rigidly deforming scenes and reproduces unseen views with high
-            fidelity.
+            To bridge this gap, we present <span class="dnerf">PointCoT</span>, a novel framework that
+            empowers MLLMs with explicit Chain-of-Thought (CoT) reasoning for 3D data. We advocate
+            for a <strong>Look, Think, then Answer</strong> paradigm, in which the model is supervised
+            to generate geometry-grounded rationales before predicting final answers.
+            To facilitate this, we construct <strong>Point-Reason-Instruct</strong>, a large-scale
+            benchmark comprising ~86k instruction-tuning samples with hierarchical CoT annotations.
+            By leveraging a dual-stream multi-modal architecture, our method synergizes semantic
+            appearance with geometric truth. Extensive experiments demonstrate that
+            <span class="dnerf">PointCoT</span> achieves state-of-the-art performance on complex
+            reasoning tasks.
           </p>
         </div>
       </div>
     </div>
-    <!--/ Abstract. -->
-
-    <!-- Paper video. -->
-    <div class="columns is-centered has-text-centered">
-      <div class="column is-four-fifths">
-        <h2 class="title is-3">Video</h2>
-        <div class="publication-video">
-          <iframe src="https://www.youtube.com/embed/MrKrnHhk8IA?rel=0&amp;showinfo=0"
-                  frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
-        </div>
-      </div>
-    </div>
-    <!--/ Paper video. -->
   </div>
 </section>
 
 
+<!-- ════════════════════════ Motivation ════════════════════════ -->
+<section class="section section-gray">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3 has-text-centered">Motivation</h2>
+
+    <div class="content has-text-justified" style="margin-bottom:1.5em;">
+      <p>
+        Pioneering works like PointLLM and 3D-LLM have successfully projected 3D point cloud
+        features into the LLM input space, enabling basic 3D Question Answering. Despite these
+        advancements, a critical limitation remains overlooked: <strong>most existing 3D-LLMs treat
+        geometric reasoning as a black-box mapping process</strong>, training models to map input
+        point clouds directly to final answers end-to-end while bypassing explicit reasoning steps.
+      </p>
+      <p>
+        When facing complex spatial tasks&mdash;such as judging whether a chair with a missing leg
+        is stable&mdash;these models suffer from what we term <strong>Geometric Hallucination</strong>
+        (illustrated above). A conventional model might correctly identify the semantic category but
+        fail to ground its judgment in fine-grained geometric details (e.g., the missing leg), leading
+        to plausible but factually incorrect conclusions.
+      </p>
+      <p>
+        This problem is rooted in two key challenges:
+      </p>
+      <ul>
+        <li>
+          <strong>Data Scarcity.</strong> Existing 3D benchmarks offer simple pair-wise annotations
+          and lack the explicit rationale supervision needed to train an interpretable reasoning process.
+        </li>
+        <li>
+          <strong>Modality Gap.</strong> Unlike rich 2D images, point clouds are sparse and lack
+          semantic texture, making pure geometric reasoning difficult, while rendered images suffer
+          from depth ambiguity.
+        </li>
+      </ul>
+    </div>
+
+    <!-- Three-step paradigm cards -->
+    <div class="paradigm-steps">
+      <div class="paradigm-step">
+        <div class="step-title">👁 Look</div>
+        <div class="step-body">
+          Perceive fine-grained geometry. The model actively selects decisive viewpoints
+          and scans specific structural regions of the 3D point cloud and multi-view renders.
+        </div>
+      </div>
+      <div class="paradigm-step">
+        <div class="step-title">💭 Think</div>
+        <div class="step-body">
+          Derive an explicit rationale grounded in spatial evidence. Intermediate reasoning
+          tokens are anchored back to invariant geometric features via a contrastive InfoNCE loss.
+        </div>
+      </div>
+      <div class="paradigm-step">
+        <div class="step-title">✅ Answer</div>
+        <div class="step-body">
+          Deduce the final conclusion conditioned on both the geometric manifold and the
+          verified reasoning chain, yielding interpretable and hallucination-resistant predictions.
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ════════════════════════ Method ════════════════════════ -->
 <section class="section">
   <div class="container is-max-desktop">
+    <h2 class="title is-3 has-text-centered">Method</h2>
 
-    <div class="columns is-centered">
-
-      <!-- Visual Effects. -->
-      <div class="column">
-        <div class="content">
-          <h2 class="title is-3">Visual Effects</h2>
-          <p>
-            Using <i>nerfies</i> you can create fun visual effects. This Dolly zoom effect
-            would be impossible without nerfies since it would require going through a wall.
-          </p>
-          <video id="dollyzoom" autoplay controls muted loop playsinline height="100%">
-            <source src="./static/videos/dollyzoom-stacked.mp4"
-                    type="video/mp4">
-          </video>
-        </div>
-      </div>
-      <!--/ Visual Effects. -->
-
-      <!-- Matting. -->
-      <div class="column">
-        <h2 class="title is-3">Matting</h2>
-        <div class="columns is-centered">
-          <div class="column content">
-            <p>
-              As a byproduct of our method, we can also solve the matting problem by ignoring
-              samples that fall outside of a bounding box during rendering.
-            </p>
-            <video id="matting-video" controls playsinline height="100%">
-              <source src="./static/videos/matting.mp4"
-                      type="video/mp4">
-            </video>
-          </div>
-
-        </div>
-      </div>
+    <div class="content has-text-justified" style="margin-bottom:1.5em;">
+      <p>
+        PointCoT operationalizes the Look&ndash;Think&ndash;Answer paradigm through a
+        <strong>Tri-Modal Contextualization</strong> architecture integrating three stages:
+      </p>
     </div>
-    <!--/ Matting. -->
 
-    <!-- Animation. -->
-    <div class="columns is-centered">
-      <div class="column is-full-width">
-        <h2 class="title is-3">Animation</h2>
-
-        <!-- Interpolating. -->
-        <h3 class="title is-4">Interpolating states</h3>
-        <div class="content has-text-justified">
-          <p>
-            We can also animate the scene by interpolating the deformation latent codes of two input
-            frames. Use the slider here to linearly interpolate between the left frame and the right
-            frame.
+    <!-- Stage descriptions -->
+    <div class="columns is-multiline">
+      <div class="column is-full">
+        <div class="box">
+          <p class="title is-5" style="color:#1a56db;">Stage 1 &mdash; Look: Tri-Modal Contextualization</p>
+          <p class="content">
+            The alignment function <em>E</em><sub>align</sub> integrates three modalities into a
+            unified geometric-semantic manifold <strong>z</strong>.
+            A <strong>Point Encoder</strong> (PointBERT) extracts high-dimensional geometric
+            representations and absolute 3D spatial centroids from the raw point cloud.
+            Concurrently, a <strong>Vision Encoder</strong> (EVA-CLIP ViT-g/14) embeds
+            8 spherical multi-view images into a visual semantic space.
+            A novel <strong>Geometry-Guided Cross-Modal Attention (GCMA)</strong> module then
+            synchronizes geometric and visual tokens by modulating their interaction with physical
+            camera projection priors and a learnable spatial bandwidth constraint, augmented by
+            Fourier-based relative spatial embeddings to capture high-frequency morphological
+            variations. A dynamic occlusion-aware gate further mitigates 3D-to-2D projection
+            artifacts. The resulting fused tokens are concatenated with tokenized text instructions
+            to form the tri-modal manifold <strong>z</strong>.
           </p>
         </div>
-        <div class="columns is-vcentered interpolation-panel">
-          <div class="column is-3 has-text-centered">
-            <img src="./static/images/interpolate_start.jpg"
-                 class="interpolation-image"
-                 alt="Interpolate start reference image."/>
-            <p>Start Frame</p>
-          </div>
-          <div class="column interpolation-video-column">
-            <div id="interpolation-image-wrapper">
-              Loading...
-            </div>
-            <input class="slider is-fullwidth is-large is-info"
-                   id="interpolation-slider"
-                   step="1" min="0" max="100" value="0" type="range">
-          </div>
-          <div class="column is-3 has-text-centered">
-            <img src="./static/images/interpolate_end.jpg"
-                 class="interpolation-image"
-                 alt="Interpolation end reference image."/>
-            <p class="is-bold">End Frame</p>
-          </div>
-        </div>
-        <br/>
-        <!--/ Interpolating. -->
-
-        <!-- Re-rendering. -->
-        <h3 class="title is-4">Re-rendering the input video</h3>
-        <div class="content has-text-justified">
-          <p>
-            Using <span class="dnerf">Nerfies</span>, you can re-render a video from a novel
-            viewpoint such as a stabilized camera by playing back the training deformations.
-          </p>
-        </div>
-        <div class="content has-text-centered">
-          <video id="replay-video"
-                 controls
-                 muted
-                 preload
-                 playsinline
-                 width="75%">
-            <source src="./static/videos/replay.mp4"
-                    type="video/mp4">
-          </video>
-        </div>
-        <!--/ Re-rendering. -->
-
       </div>
-    </div>
-    <!--/ Animation. -->
-
-
-    <!-- Concurrent Work. -->
-    <div class="columns is-centered">
-      <div class="column is-full-width">
-        <h2 class="title is-3">Related Links</h2>
-
-        <div class="content has-text-justified">
-          <p>
-            There's a lot of excellent work that was introduced around the same time as ours.
+      <div class="column is-full">
+        <div class="box">
+          <p class="title is-5" style="color:#1a56db;">Stage 2 &mdash; Think: Explicit Geometry-Grounded CoT Generation</p>
+          <p class="content">
+            The LLM autoregressively generates an explicit rationale chain
+            <strong>R = {r<sub>t</sub>}</strong> conditioned on the manifold <strong>z</strong>.
+            To prevent spatial hallucinations, a <strong>geometric attention anchor</strong>
+            is enforced: at each decoding step <em>t</em>, the hidden state <em>h<sub>t</sub></em>
+            is regularized via a contrastive <strong>InfoNCE loss</strong> (L<sub>anchor</sub>)
+            that maximizes mutual information between the evolving reasoning state and the invariant
+            geometric tokens. This theoretical grounding ensures that every generated reasoning
+            token is conditioned on physical 3D truths rather than spurious 2D visual priors.
           </p>
-          <p>
-            <a href="https://arxiv.org/abs/2104.09125">Progressive Encoding for Neural Optimization</a> introduces an idea similar to our windowed position encoding for coarse-to-fine optimization.
-          </p>
-          <p>
-            <a href="https://www.albertpumarola.com/research/D-NeRF/index.html">D-NeRF</a> and <a href="https://gvv.mpi-inf.mpg.de/projects/nonrigid_nerf/">NR-NeRF</a>
-            both use deformation fields to model non-rigid scenes.
-          </p>
-          <p>
-            Some works model videos with a NeRF by directly modulating the density, such as <a href="https://video-nerf.github.io/">Video-NeRF</a>, <a href="https://www.cs.cornell.edu/~zl548/NSFF/">NSFF</a>, and <a href="https://neural-3d-video.github.io/">DyNeRF</a>
-          </p>
-          <p>
-            There are probably many more by the time you are reading this. Check out <a href="https://dellaert.github.io/NeRF/">Frank Dellart's survey on recent NeRF papers</a>, and <a href="https://github.com/yenchenlin/awesome-NeRF">Yen-Chen Lin's curated list of NeRF papers</a>.
+        </div>
+      </div>
+      <div class="column is-full">
+        <div class="box">
+          <p class="title is-5" style="color:#1a56db;">Stage 3 &mdash; Answer: Progressive Dual-Stage Optimization</p>
+          <p class="content">
+            Training follows a <strong>two-stage curriculum</strong>.
+            In <em>Stage&nbsp;I (Reasoning Initialization)</em>, the model is trained solely on
+            rationale generation with the answer prediction gradient truncated, forcing the
+            acquisition of explicit geometric reasoning and preventing shortcut learning.
+            In <em>Stage&nbsp;II (Causal Deduction Tuning)</em>, the full joint objective is
+            optimized using teacher forcing with the ground-truth reasoning trajectory as context.
+            The geometric anchor loss L<sub>anchor</sub> acts as a self-correcting mechanism
+            throughout, bounding the autoregressive search space to ensure robust deductive
+            resolution.
           </p>
         </div>
       </div>
     </div>
-    <!--/ Concurrent Work. -->
+
+    <!-- Pipeline Figure (Fig. 3 from paper) -->
+    <figure style="margin-top:0.5em;">
+      <img src="./static/images/pipeline.png"
+           alt="PointCoT Architecture"
+           class="publication-image"
+           onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+      <div class="placeholder-image" style="display:none;">
+        [ Place Figure 3 (overall architecture) from the paper here: static/images/pipeline.png ]
+      </div>
+      <figcaption class="figure-caption">
+        <strong>Figure 3.</strong> The overall architecture of PointCoT. In the <em>Look Stage</em>,
+        a dual-stream encoder (PointBERT + EVA-CLIP) extracts geometric and visual features, fused
+        into a Tri-Modal Manifold <strong>z</strong> via GCMA. During the <em>Think Stage</em>, the
+        LLM autoregressively generates an explicit rationale <strong>R</strong>, while hidden states
+        are grounded to geometric tokens via an InfoNCE loss L<sub>anchor</sub>. In the
+        <em>Answer Stage</em>, the final answer is deduced conditionally on both
+        <strong>z</strong> and <strong>R</strong> through progressive dual-stage optimization.
+      </figcaption>
+    </figure>
 
   </div>
 </section>
 
 
+<!-- ════════════════════════ Dataset ════════════════════════ -->
+<section class="section section-gray">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3 has-text-centered">Point-Reason-Instruct Dataset</h2>
+
+    <div class="content has-text-justified" style="margin-bottom:1.8em;">
+      <p>
+        To democratize research on explicit 3D CoT reasoning, we construct
+        <strong>Point-Reason-Instruct</strong>&mdash;the first large-scale dataset combining 3D point
+        clouds with explicit CoT annotations. Unlike previous benchmarks that provide simple
+        input-output pairs, each sample in our dataset provides a triplet of
+        <em>&langle;Point Cloud, Multi-view Images, CoT Rationale&rangle;</em>,
+        enabling models to learn <em>how to reason</em>, not just what to answer.
+        The dataset is publicly available on
+        <a href="https://huggingface.co/datasets/dongxu0852/Point-Reason-Instruct" target="_blank">HuggingFace</a>.
+      </p>
+    </div>
+
+    <!-- Stats Cards -->
+    <div class="columns is-centered" style="margin-bottom:2em;">
+      <div class="column is-one-quarter has-text-centered">
+        <div class="stat-card">
+          <div class="stat-number">86,280</div>
+          <div class="stat-label">Total instruction-tuning samples</div>
+        </div>
+      </div>
+      <div class="column is-one-quarter has-text-centered">
+        <div class="stat-card">
+          <div class="stat-number">28,760</div>
+          <div class="stat-label">Unique 3D objects (Strict Object-Level Split)</div>
+        </div>
+      </div>
+      <div class="column is-one-quarter has-text-centered">
+        <div class="stat-card">
+          <div class="stat-number">3</div>
+          <div class="stat-label">Cognitive reasoning levels</div>
+        </div>
+      </div>
+      <div class="column is-one-quarter has-text-centered">
+        <div class="stat-card">
+          <div class="stat-number">8</div>
+          <div class="stat-label">Spherical views per object (6 azimuth + zenith + nadir)</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Construction Pipeline description -->
+    <h3 class="title is-4">Construction Pipeline</h3>
+    <div class="content has-text-justified" style="margin-bottom:1.5em;">
+      <p>
+        <strong>Data Sourcing.</strong> We curate objects from the
+        <a href="https://arxiv.org/abs/2212.08751" target="_blank">Objaverse-LVIS</a> subset using
+        a topology-aware filtering protocol that prioritizes objects with complex geometries and
+        articulated parts while filtering out overly simplistic shapes. For each object, point clouds
+        are generated by sampling <em>N</em> = 8,192 points via Farthest Point Sampling (FPS).
+      </p>
+      <p>
+        <strong>Holistic Multi-View Rendering.</strong> We design a <em>Spherical 8-View System</em>
+        for holistic coverage: six equidistant azimuth angles (0&deg;&ndash;300&deg;) at 30&deg;
+        elevation, plus zenith and nadir views. The orthogonal views capture cavities, inner surfaces,
+        and supporting mechanisms (e.g., chassis) that are typically occluded in standard horizontal
+        scans, enabling reasoning about object affordances such as containability.
+      </p>
+      <p>
+        <strong>Geometry-Aware Teacher Agent.</strong> Scalable annotation is driven by
+        Qwen2.5-VL-72B-Instruct, which generates hierarchical CoT rationales across three task
+        types: geometric attribute reasoning, spatial relation reasoning, and functionality &amp;
+        affordance reasoning. A deterministic <em>cross-validation protocol</em> rigorously
+        cross-references every spatial assertion against rigid 3D object metadata and multi-view
+        consistency constraints, discarding candidates that fail geometric verification to guarantee
+        that the final corpus is anchored in physical 3D truth.
+      </p>
+    </div>
+
+    <!-- Dataset Pipeline Figure (Fig. 2 from paper) -->
+    <figure style="margin-bottom:2em;">
+      <img src="./static/images/dataset_pipeline.png"
+           alt="Point-Reason-Instruct Construction Pipeline"
+           class="publication-image"
+           onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+      <div class="placeholder-image" style="display:none;">
+        [ Place Figure 2 (data construction pipeline) from the paper here: static/images/dataset_pipeline.png ]
+      </div>
+      <figcaption class="figure-caption">
+        <strong>Figure 2.</strong> The Data Construction Pipeline of Point-Reason-Instruct.
+        (1) Dual-Stream Preprocessing: objects are sampled into point clouds and rendered into
+        8 spherical views. (2) Multi-Task Reasoning Generation: the Qwen2.5-VL teacher agent
+        generates hierarchical CoT rationales covering geometric attributes, spatial relations,
+        and functionality. (3) Quality Filtering: rationales are validated against 3D metadata
+        to eliminate hallucinations.
+      </figcaption>
+    </figure>
+
+    <!-- Three Cognitive Levels -->
+    <h3 class="title is-4">Hierarchical Task Design</h3>
+    <div class="content">
+      <p style="margin-bottom:1em;">
+        The dataset is structured into three cognitive hierarchies to rigorously evaluate reasoning
+        depth, ranging from local perception to abstract deduction:
+      </p>
+
+      <div class="box" style="margin-bottom:1em;">
+        <p>
+          <span class="level-badge level-1">Level 1</span>
+          <strong>Structural Part Reasoning</strong> (~28k samples)
+        </p>
+        <p style="font-size:0.9em; color:#444; margin-top:0.4em;">
+          Identification and structural analysis of explicit object components. Queries require
+          recognizing specific parts (e.g., armrests, legs, chassis), counting them, and analyzing
+          geometric integrity.
+          <em>Example: "How many armrests does this chair have, and are they connected to a central axis?"</em>
+        </p>
+      </div>
+
+      <div class="box" style="margin-bottom:1em;">
+        <p>
+          <span class="level-badge level-2">Level 2</span>
+          <strong>3D Viewpoint Reasoning</strong> (~29k samples)
+        </p>
+        <p style="font-size:0.9em; color:#444; margin-top:0.4em;">
+          Holistic understanding of 3D structures and spatial perspectives. The model performs
+          mental rotation or infers details of occluded viewpoints (e.g., underside, rear surface)
+          and reasons about relative spatial arrangement.
+          <em>Example: "Describe the geometric structure of the chair's back from the rear view."</em>
+        </p>
+      </div>
+
+      <div class="box">
+        <p>
+          <span class="level-badge level-3">Level 3</span>
+          <strong>Functionality and Affordance Reasoning</strong> (~29k samples)
+        </p>
+        <p style="font-size:0.9em; color:#444; margin-top:0.4em;">
+          Physics-grounded causal reasoning. The model bridges static form and dynamic function,
+          applying principles (gravity, friction, containment) to deduce interactions directly
+          from geometry.
+          <em>Example: "Would this container spill its contents if tilted 45 degrees?"</em>
+        </p>
+      </div>
+
+      <p style="margin-top:1em; font-size:0.9em; color:#555;">
+        <strong>Strict Object-Level Splitting</strong> prevents data leakage: 22,871 objects (79.5%)
+        for training, 2,945 (10.2%) for validation, and 2,944 (10.2%) for testing. Geometric shapes
+        encountered during inference are entirely unseen during training.
+      </p>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ════════════════════════ Experimental Results ════════════════════════ -->
+<section class="section">
+  <div class="container is-max-desktop">
+    <h2 class="title is-3 has-text-centered">Experimental Results</h2>
+
+    <div class="content has-text-justified" style="margin-bottom:1.5em;">
+      <p>
+        We evaluate PointCoT on the Point-Reason-Instruct benchmark and additionally assess
+        zero-shot generalization on Objaverse-LVIS (open-vocabulary captioning) and ScanQA
+        (complex indoor spatial reasoning). Our architecture integrates <strong>PointBERT</strong>
+        and <strong>EVA-CLIP (ViT-g/14)</strong> as encoders with
+        <strong>Qwen2.5-7B-Instruct</strong> as the LLM backbone. Training runs on
+        8&times; NVIDIA A100 (80GB) GPUs.
+      </p>
+    </div>
+
+    <!-- Table 1: Main Results -->
+    <h3 class="title is-4">Main Results on Point-Reason-Instruct</h3>
+    <div class="table-container" style="margin-bottom:0.5em;">
+      <table class="table results-table is-bordered is-hoverable">
+        <thead>
+          <tr>
+            <th>Model</th>
+            <th>Modality</th>
+            <th>Backbone (Encoder / LLM)</th>
+            <th>Overall</th>
+            <th>Geo.</th>
+            <th>Spat.</th>
+            <th>Func.</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="section-header">
+            <td colspan="7">General-Purpose 2D VLMs (Zero-shot)</td>
+          </tr>
+          <tr>
+            <td>GPT-4V</td>
+            <td>Img</td>
+            <td>Proprietary / GPT-4</td>
+            <td>65.4</td><td>58.2</td><td>68.5</td><td>71.2</td>
+          </tr>
+          <tr>
+            <td>Qwen2-VL-7B</td>
+            <td>Img</td>
+            <td>ViT-L / Qwen2</td>
+            <td>63.8</td><td>54.5</td><td>64.2</td><td>69.5</td>
+          </tr>
+          <tr>
+            <td>LLaVA-1.5</td>
+            <td>Img</td>
+            <td>ViT-L / Vicuna-7B</td>
+            <td>54.1</td><td>47.2</td><td>51.8</td><td>58.9</td>
+          </tr>
+          <tr class="section-header">
+            <td colspan="7">Specialized 3D-LLMs (Fine-tuned)</td>
+          </tr>
+          <tr>
+            <td>Chat-3D v2</td>
+            <td>PC</td>
+            <td>ViT-g / Vicuna-7B</td>
+            <td>66.1</td><td>72.4</td><td>63.2</td><td>62.8</td>
+          </tr>
+          <tr>
+            <td>Point-LLM</td>
+            <td>PC</td>
+            <td>PointBERT / Vicuna-7B</td>
+            <td>62.4</td><td>68.1</td><td>59.2</td><td>58.5</td>
+          </tr>
+          <tr>
+            <td>Point-Bind</td>
+            <td>PC</td>
+            <td>PointBERT / Llama2-7B</td>
+            <td>58.1</td><td>65.2</td><td>55.4</td><td>52.3</td>
+          </tr>
+          <tr class="ours">
+            <td>PointCoT (Ours)</td>
+            <td>PC+Img</td>
+            <td>PointBERT / Qwen2.5-7B</td>
+            <td>78.5</td><td>82.3</td><td>76.4</td><td>75.1</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="figure-caption" style="margin-bottom:2em;">
+      Accuracy (%) across three cognitive dimensions on Point-Reason-Instruct.
+      <em>Geo.</em> = structural perception; <em>Spat.</em> = spatial positioning/connectivity;
+      <em>Func.</em> = physics-grounded causal reasoning. PointCoT outperforms the strongest
+      fine-tuned baseline by <strong>+12.4%</strong>.
+    </p>
+
+    <!-- Table 2: Architecture Agnosticism -->
+    <h3 class="title is-4">Architecture Agnosticism &amp; Scalability</h3>
+    <div class="table-container" style="margin-bottom:0.5em;">
+      <table class="table results-table is-bordered is-hoverable">
+        <thead>
+          <tr>
+            <th>LLM Backbone</th>
+            <th>Point Encoder</th>
+            <th>Overall Acc (%)</th>
+            <th>Reasoning Score (GPT-4, 1&ndash;10)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Vicuna-7B</td>
+            <td>PointBERT</td>
+            <td>73.4</td><td>7.9</td>
+          </tr>
+          <tr>
+            <td>Mistral-7B-v0.3</td>
+            <td>PointBERT</td>
+            <td>76.8</td><td>8.3</td>
+          </tr>
+          <tr class="ours">
+            <td>Qwen2.5-7B (Ours)</td>
+            <td>PointBERT</td>
+            <td>78.5</td><td>8.5</td>
+          </tr>
+          <tr class="ours">
+            <td>Qwen2.5-7B</td>
+            <td>PointNeXt</td>
+            <td>79.6</td><td>8.7</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="figure-caption" style="margin-bottom:2em;">
+      PointCoT with the weaker Vicuna-7B backbone (73.4%) still significantly outperforms the
+      end-to-end Point-LLM baseline (62.4%), confirming the intrinsic value of explicit
+      rationale generation.
+    </p>
+
+    <!-- Table 3: Zero-Shot Generalization -->
+    <h3 class="title is-4">Zero-Shot Generalization &amp; Data Efficiency</h3>
+    <div class="table-container" style="margin-bottom:0.5em;">
+      <table class="table results-table is-bordered is-hoverable">
+        <thead>
+          <tr>
+            <th>Method</th>
+            <th>Training Data Scale</th>
+            <th>ScanQA<sup>†</sup> (BLEU-4)</th>
+            <th>Objaverse (Acc %)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>3D-LLM</td>
+            <td>300k (4.3&times;)</td>
+            <td>24.5</td><td>49.2</td>
+          </tr>
+          <tr>
+            <td>Point-LLM</td>
+            <td>660k (9.6&times;)</td>
+            <td>22.4</td><td>45.1</td>
+          </tr>
+          <tr class="ours">
+            <td>PointCoT (Ours)</td>
+            <td>~69k (1.0&times;)</td>
+            <td>23.4</td><td>51.8 (+2.6)</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="figure-caption" style="margin-bottom:2em;">
+      Despite training on merely ~69k samples, PointCoT achieves leading 51.8% on Objaverse-LVIS,
+      demonstrating exceptional data efficiency through mastery of localized geometric primitives.
+      <sup>†</sup> Evaluated on localized instance crops aligned with our object-centric regime.
+    </p>
+
+    <!-- Table 4: Reasoning Quality -->
+    <h3 class="title is-4">Automated Evaluation of Rationale Quality</h3>
+    <div class="table-container" style="margin-bottom:0.5em;">
+      <table class="table results-table is-bordered is-hoverable">
+        <thead>
+          <tr>
+            <th>Method</th>
+            <th>Correctness</th>
+            <th>Logic</th>
+            <th>Grounding</th>
+            <th>Average</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Point-LLM (CoT-adapted)</td>
+            <td>7.1</td><td>6.8</td><td>6.2</td><td>6.7</td>
+          </tr>
+          <tr>
+            <td>GPT-4V</td>
+            <td>8.1</td><td>8.4</td><td>7.6</td><td>8.0</td>
+          </tr>
+          <tr class="ours">
+            <td>PointCoT (Ours)</td>
+            <td>8.4</td><td>8.6</td><td>8.9</td><td>8.6</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="figure-caption" style="margin-bottom:2em;">
+      GPT-4 evaluates 200 sampled rationales conditioned on ground-truth 3D metadata.
+      PointCoT achieves the highest Grounding score (8.9), confirming deductive chains are firmly
+      anchored in verifiable 3D spatial evidence.
+    </p>
+
+    <!-- Table 5: Ablation Studies -->
+    <h3 class="title is-4">Ablation Studies</h3>
+    <div class="columns">
+      <div class="column">
+        <p style="font-weight:600; margin-bottom:0.5em;">(a) Input Modality Ablation</p>
+        <div class="table-container">
+          <table class="table results-table is-bordered is-hoverable">
+            <thead>
+              <tr><th>Configuration</th><th>Acc (%)</th><th>Score</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>Image Only</td><td>55.2</td><td>5.1</td></tr>
+              <tr><td>Point Only</td><td>64.8</td><td>5.8</td></tr>
+              <tr class="ours"><td>Hybrid (Ours)</td><td>78.5</td><td>8.5</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p style="font-size:0.85em; color:#888; margin-top:0.4em;">
+          Hybrid modality provides +13.7% over point-only, confirming dual-stream synergy.
+        </p>
+      </div>
+      <div class="column">
+        <p style="font-weight:600; margin-bottom:0.5em;">(b) Reasoning Strategy Ablation</p>
+        <div class="table-container">
+          <table class="table results-table is-bordered is-hoverable">
+            <thead>
+              <tr><th>Strategy</th><th>Acc (%)</th><th>GHR &darr;</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>Direct Mapping</td><td>67.4</td><td>25.4%</td></tr>
+              <tr><td>Implicit CoT</td><td>71.2</td><td>18.2%</td></tr>
+              <tr class="ours"><td>Explicit CoT (Ours)</td><td>78.5</td><td>5.1%</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p style="font-size:0.85em; color:#888; margin-top:0.4em;">
+          GHR = Geometric Hallucination Rate. Explicit CoT reduces hallucinations from 25.4% to <strong>5.1%</strong>.
+        </p>
+      </div>
+    </div>
+
+    <!-- Qualitative Results -->
+    <h3 class="title is-4" style="margin-top:1.5em;">Qualitative Analysis</h3>
+
+    <!-- Qualitative Figure -->
+    <figure style="margin-bottom:1.5em;">
+      <img src="./static/images/qualitative.png"
+           alt="Qualitative Results"
+           class="publication-image"
+           onerror="this.style.display='none';this.nextElementSibling.style.display='flex';">
+      <div class="placeholder-image" style="display:none;">
+        [ Place Figure 4 (qualitative comparison) from the paper here: static/images/qualitative.png ]
+      </div>
+      <figcaption class="figure-caption">
+        <strong>Figure 4.</strong> Qualitative comparison on Point-Reason-Instruct. While the baseline
+        relies on implicit semantic priors and suffers from geometric hallucinations, PointCoT follows
+        a Look&ndash;Think&ndash;Answer paradigm, actively selecting decisive viewpoints and explicitly
+        grounding rationales in local 3D geometric structures.
+      </figcaption>
+    </figure>
+
+    <!-- Three qualitative case boxes -->
+    <div class="case-box">
+      <div class="case-title">Case A &mdash; Fine-Grained Structural Reasoning</div>
+      <div class="case-question">Q: Is the mascot holding anything in its left hand?</div>
+      <div class="baseline-answer">
+        ✗ Baseline: "The object is a mascot with two arms and two hands."
+      </div>
+      <div class="our-answer">
+        ✓ PointCoT:
+        <span class="step-tag">Look</span> Scan the palm area in lateral renders and point cloud. &nbsp;
+        <span class="step-tag">Think</span> Curved finger geometry and a separate cylindrical point cluster indicate an object. &nbsp;
+        <span class="step-tag">Answer</span> Yes, holding a stick-like object.
+      </div>
+    </div>
+
+    <div class="case-box">
+      <div class="case-title">Case B &mdash; Topological Detection via Zenith View</div>
+      <div class="case-question">Q: Are there any visible openings or gaps on the very top of the windmill's roof?</div>
+      <div class="baseline-answer">
+        ✗ Baseline: "The windmill structure appears standard in side views."
+      </div>
+      <div class="our-answer">
+        ✓ PointCoT:
+        <span class="step-tag">Look</span> Use the Zenith View to bypass side blade occlusion. &nbsp;
+        <span class="step-tag">Think</span> Top-down geometry confirms a continuous manifold without any structural voids. &nbsp;
+        <span class="step-tag">Answer</span> No, it is a fully closed structure.
+      </div>
+    </div>
+
+    <div class="case-box">
+      <div class="case-title">Case C &mdash; Geometric Profile Estimation via Bottom View</div>
+      <div class="case-question">Q: Is the monitor's base circular or rectangular?</div>
+      <div class="baseline-answer">
+        ✗ Baseline: "This is a standard monitor with a central stand."
+      </div>
+      <div class="our-answer">
+        ✓ PointCoT:
+        <span class="step-tag">Look</span> Examine the stand footprint in Bottom View. &nbsp;
+        <span class="step-tag">Think</span> The geometric boundary clearly shows four sharp corners, forming a rectangular profile. &nbsp;
+        <span class="step-tag">Answer</span> The base is rectangular.
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ════════════════════════ BibTeX ════════════════════════ -->
 <section class="section" id="BibTeX">
   <div class="container is-max-desktop content">
     <h2 class="title">BibTeX</h2>
-    <pre><code>@article{park2021nerfies,
-  author    = {Park, Keunhong and Sinha, Utkarsh and Barron, Jonathan T. and Bouaziz, Sofien and Goldman, Dan B and Seitz, Steven M. and Martin-Brualla, Ricardo},
-  title     = {Nerfies: Deformable Neural Radiance Fields},
-  journal   = {ICCV},
-  year      = {2021},
+    <pre><code>@article{zhang2026pointcot,
+  author    = {Zhang, Dongxu and Sun, Yiding and Li, Pengcheng and Liu, Yumou and Lin, Hongqiang
+               and Xu, Haoran and Mu, Xiaoxuan and Lin, Liang and Yan, Wenbiao and Yang, Ning
+               and Fang, Chaowei and Zhao, Juanjuan and Zhu, Jihua and He, Conghui and Tan, Cheng},
+  title     = {PointCoT: A Multi-modal Benchmark for Explicit 3D Geometric Reasoning},
+  journal   = {arXiv preprint arXiv:2602.23945},
+  year      = {2026},
 }</code></pre>
   </div>
 </section>
 
 
+<!-- ════════════════════════ Footer ════════════════════════ -->
 <footer class="footer">
   <div class="container">
     <div class="content has-text-centered">
-      <a class="icon-link"
-         href="./static/videos/nerfies_paper.pdf">
+      <a class="icon-link" href="https://arxiv.org/pdf/2602.23945">
         <i class="fas fa-file-pdf"></i>
       </a>
-      <a class="icon-link" href="https://github.com/keunhong" class="external-link" disabled>
+      <a class="icon-link" href="https://github.com/DongXu-Zhang/PointCot">
         <i class="fab fa-github"></i>
       </a>
     </div>
@@ -469,16 +1017,13 @@
       <div class="column is-8">
         <div class="content">
           <p>
-            This website is licensed under a <a rel="license"
-                                                href="http://creativecommons.org/licenses/by-sa/4.0/">Creative
+            This website is licensed under a
+            <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">Creative
             Commons Attribution-ShareAlike 4.0 International License</a>.
           </p>
           <p>
-            This means you are free to borrow the <a
-              href="https://github.com/nerfies/nerfies.github.io">source code</a> of this website,
-            we just ask that you link back to this page in the footer.
-            Please remember to remove the analytics code included in the header of the website which
-            you do not want on your website.
+            The website template is borrowed from
+            <a href="https://nerfies.github.io">Nerfies</a>.
           </p>
         </div>
       </div>
